@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="This page is a photo gallery" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./app.js" defer></script>
+    <title>The Gallery</title>
+  </head>
+  <body>
+    <div>
+      <h1 id="header" aria-label="The Gallery">The Gallery</h1>
+    </div>
+    
+    <div>
+      <form id="form" aria-label="Search form">
+        <label for="searchInput">Search for a photo: </label>
+        <input type="text" name="input" id="searchInput" placeholder="Type here to search" aria-label="Search for a photo">
+        <button type="submit" aria-label="Submit">Search</button>
+      </form>
+    </div>
+    
+    <div id="image-container" aria-label="Image gallery"></div>
+    <div class="large-image" id="display" aria-label="Selected image"></div>
+    
+    </body>
+    </html>
+
