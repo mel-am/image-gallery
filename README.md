@@ -20,11 +20,12 @@ Use client-side JavaScript to navigate between images using the keyboard (tab, e
 
 The thumbnails change the background as required and a large image appeared when the container-image was clicked on.
 
-I was able to use the  Unsplash API up and running on the page, but due to the hourly limit and frequent page refreshes, I was unable to check that it was working correctly, so instead opted to use static images.
+Initially, I  had a problem with the  Unsplash API up and running on the page, but due to the hourly limit and frequent page refreshes, I was unable to check that it was working correctly, so instead opted to use static images.  
 
+I was able to resolve this issue, as a result when the Get a random photo button is selected a new photo appears.
 
-The Lighthouse score for Performance,accessibility and SEO are 100.
+The Lighthouse score for Performance,accessibility and SEO are high.
 
 ### Sticky points
 
-The Api  not working as I wanted.
+The API query search worked (code in js), but I did not use it on my page as  I wanted the user to input the query to retrieve a photo.

@@ -1,9 +1,19 @@
+
 const imageContainer = document.getElementById("image-container");
 const displayImage = document.getElementById("display");
-const accesskey = "jWcd4CYnq4cOJFRcX2LUCnIFBoDc_fQ2Z8yEtRAlyNA";
+const form = document.getElementById("form");
+const accessKey = "jWcd4CYnq4cOJFRcX2LUCnIFBoDc_fQ2Z8yEtRAlyNA";
+const randomButton = document.getElementById("random-button");
+const randomPhoto = document.getElementById("random-photo");
 //Also created a gitignore for my access key 
 
+let image = [];
+let currentImgIndex = 0;
 
+form.addEventListener('submit', function(event) {
+    event.preventDefault()
+    search(event.target.input.value)
+})
 imageContainer.addEventListener("click", function() {
   const displayImage = this.querySelector('img').src;
   backgroundImage.display = `url('${displayImage}')`;
@@ -39,28 +49,35 @@ const images = [
 ];
 
 
+
+
 async function search(query) {
   // API response
-  let response = await fetch(`https://api.unsplash.com/search/photos/query=${query}&${accesskey}`)
+  let response = await fetch(`https://api.unsplash.com/search/photos/query=${query}&client_id=${accesskey}`)
   let data = await response.json()
-  images = data.results
+  const images = data.results
+  createThumbnails(images);
   createBigImage(images[currentImgIndex])
  
 }
-
+function handleSearch() {
+  const query = document.getElementById('queryInput').value;
+  search(query);
+}
 // creates thumbnails
 function createThumbnails() {
+  imageContainer.innerHTML = ""; 
   images.forEach(function (image) {
-    // create an img DOM node
     const img = document.createElement("img");
     img.src = image.url;
     img.alt = image.alt;
     imageContainer.appendChild(img);
-
-
+    
+  
     img.addEventListener("click", function () {
       createBigImage(image);
     });
+    imageContainer.appendChild(img);
   });
 }
 
@@ -76,25 +93,39 @@ function createBigImage(image) {
 createThumbnails();
 createBigImage(images[0]);
 
+// const defaultQuery = "joy"; // This  query did work 
+//     search(searchInput);
 
-function createImage(image) {
-  imageContainer.innerHTML = ''
-  console.log(image)
-  let imgTag = document.createElement('img')
-  imgTag.src = image.urls.regular
-  imgTag.alt = image.alt_description
 
-  imageContainer.appendChild(imgTag)
+randomButton.addEventListener("click", getRandomPhoto);
+//fetch a random photo from api unsplash
+async function getRandomPhoto() {
+  try {
+    const response = await fetch(
+      `https://api.unsplash.com/photos/random?client_id=${accessKey}`
+    );
+    const data = await response.json();
+    const imageUrl = data.urls.regular;
+    randomPhoto.src = imageUrl;
+  } catch (error) {
+    console.error("Error fetching random photo:", error);
+  }
 }
 
+
 imageContainer.addEventListener("keydown", function(event) {
-  if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+  if (event.key === "rightArrow" || event.key === "leftArrow") {
     // To use the right and left arrow keys
-    // For example:
-    if (event.key === "ArrowRight") {
+    if (event.key === "rightArrow") {
       // If the right arrow is pressed
-    } else if (event.key === "ArrowLeft") {
+    } else if (event.key === "leftArrow") {
       // If the  left arrow key is pressed
+
+    const selectedImage = document.selectedImage;
+    const nextImage = event.key === "RightArrow" ? selectedImage.nextImageSibling : focusedImage.previousImageSibling;
+    if (nextImage && nextImage.tagName === 'IMG') {
+      nextImage.focus();
+    }
     }
   }
 
